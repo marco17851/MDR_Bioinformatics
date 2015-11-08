@@ -29,7 +29,7 @@ class Cell:
     # Make matrix comparing a single combo of SNPs in N-dimensional space
     # For example, let's compare SNP1 and SNP4 from Practice Data
     # Takes samples data from csv reader and list of SNPs we are combining (for example, SNP1 and SNP4)
-    def make_cells(self, samples, SNPs_to_examine, keys):
+    def make_cells(self, samples, keys):
         # Dictionary to store each individual cell (combo of SNPs).
         # Key: Genotype at those SNPs
         # For example, key "00" means homozygous deficient in first SNP and second SNP.
@@ -38,21 +38,32 @@ class Cell:
         cells = {}
         # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
         num_cells = int(math.pow(self.num_genotypes, self.N))
-        print num_cells
         for n in range(num_cells):
             new_cell = Cell(self.N, self.T, self.num_genotypes)
-            key = 
-        print len(cells)
+            key = keys[n]
+            cells[key] = new_cell
         
         return cells
         
     # Given a bunch of Samples, put them in buckets (the cells) by appropriate SNP genotype
-    def calc_cells(self, samples):
-        # For case and control, then for each person in samples data: 
+    def calc_cells(self, samples, SNPs_to_examine, cells):
+        # For case and control (only 2 phenotypes), then for each person in samples data: 
         for phenotype in samples:
+            print "\nPhenotype: ", phenotype
             for i in range(len(samples[phenotype])):
+                print "Person: ", i
                 person = samples[phenotype][i]
-                # If person's phenotype was 0, they are control (no disease). 1 is case (disease)
+                
+                # Determine key based on what genotype each person has at SNPS_to_examine
+                SNP_key = ""
+                for SNP_to_examine in SNPs_to_examine:
+                    SNP_key += str(person.snps[SNP_to_examine])
+                print "SNP_key: ", SNP_key
+                
+                # Bucket people using key to dictionary cells
+                if phenotype == 0:                
+                    cells[SNP_key].control += 1
+                else:
+                    cells[SNP_key].case += 1
                 
                 
-        

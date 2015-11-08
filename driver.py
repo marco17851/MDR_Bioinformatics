@@ -6,8 +6,10 @@ from cell import *
 test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
 
 # To test how cells class works.
-new_cells = Cells(2, 1.0, 3)
-new_cells.make_cells(test_samples)
+new_cells = Cell(2, 1.0, 3)
+test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
+keys = new_cells.make_keys(3)
+new_cells.make_cells(test_samples, ["SNP1", "SNP4"], keys)
 new_cells.calc_cells(test_samples)
 
 for pheno in samples:
