@@ -61,8 +61,9 @@ new_cells = Cell(2, 1.0, 3)
 test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
 keys = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
 list_c = new_cells.make_cells(test_samples, keys)
+list_d = new_cells.calc_cells(test_samples, ["SNP1", "SNP4"], list_c)
 
-cel = MatrixGraphic(list_c, "SNP1", "SNP4")
+cel = MatrixGraphic(list_d, "SNP1", "SNP4")
 for x in range(1):
 	cel.printGraphics()
 

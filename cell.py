@@ -58,12 +58,12 @@ class Cell:
                 SNP_key = ""
                 for SNP_to_examine in SNPs_to_examine:
                     SNP_key += str(person.snps[SNP_to_examine])
-                print "SNP_key: ", SNP_key
                 
                 # Bucket people using key to dictionary cells
+                print SNP_key
                 if phenotype == 0:                
                     cells[SNP_key].control += 1
                 else:
                     cells[SNP_key].case += 1
-                
+        return cells
                 
