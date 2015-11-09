@@ -19,13 +19,6 @@ class Cell:
         self.ratio = 0     # What is case-control ratio?
         self.risk = -1     # Either low-risk or high-risk (0 or 1), or -1 is not enough data to calculate
 
-    # Helper function for make_cells dictionary cells.
-    # If 3 genotypes (0, 1, 2) possible and 2 SNPs examined, keys are 00, 01, 02, 10, 11, 12, 20, 21, 22.
-    def make_keys(self, num_genotypes):
-        keys = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
-        
-        return keys
-
     # Make matrix comparing a single combo of SNPs in N-dimensional space
     # For example, let's compare SNP1 and SNP4 from Practice Data
     # Takes samples data from csv reader and list of SNPs we are combining (for example, SNP1 and SNP4)
@@ -65,5 +58,8 @@ class Cell:
                     cells[SNP_key].control += 1
                 else:
                     cells[SNP_key].case += 1
+
+        return cells
+        # Calculate case:control ratio and classify if high/low risk
                 
                 
