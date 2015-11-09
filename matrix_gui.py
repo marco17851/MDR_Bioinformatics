@@ -33,25 +33,25 @@ class MatrixGraphic:
 					first_letter = 1
 
 				if (x%5 == 1):
-					print "{: >10}{: <6}{: <4}".format("", "|CASE: ", round(self.cell_list[str(first_letter)+'0'].case,2)),
-					print "{: <6}{: <4}".format("|CASE: ", round(self.cell_list[str(first_letter)+'1'].case, 2)),
-					print "{: <6}{: <4}{: >2}".format("|CASE: ", round(self.cell_list[str(first_letter)+'2'].case, 2), "|")
+					print "{: >10}{: <6}{: <4}".format("", "|CASE: ", int(self.cell_list[str(first_letter)+'0'].case)),
+					print "{: <6}{: <4}".format("|CASE: ", int(self.cell_list[str(first_letter)+'1'].case)),
+					print "{: <6}{: <4}{: >2}".format("|CASE: ", int(self.cell_list[str(first_letter)+'2'].case), "|")
 				elif (x%5 == 2):
-					print "{: >8}{: >2}{: <6}{: <4}".format(letters[l_ind], "", "|CTRL: ", round(self.cell_list[str(first_letter)+'0'].control,2)),
-					print "{: <6}{: <4}".format("|CTRL: ", round(self.cell_list[str(first_letter)+'1'].control, 2)),
+					print "{: >8}{: >2}{: <6}{: <4}".format(letters[l_ind], "", "|CTRL: ", int(self.cell_list[str(first_letter)+'0'].control)),
+					print "{: <6}{: <4}".format("|CTRL: ", int(self.cell_list[str(first_letter)+'1'].control)),
 					if x == 7:
-						print "{: <6}{: <4}{: >2}{: >10}".format("|CTRL: ", round(self.cell_list[str(first_letter)+'2'].control, 2), "|", str.upper(self.side_name))
+						print "{: <6}{: <4}{: >2}{: >10}".format("|CTRL: ", int(self.cell_list[str(first_letter)+'2'].control), "|", str.upper(self.side_name))
 					else:
-						print "{: <6}{: <4}{: >2}".format("|CTRL: ", round(self.cell_list[str(first_letter)+'2'].control, 2), "|")
+						print "{: <6}{: <4}{: >2}".format("|CTRL: ", int(self.cell_list[str(first_letter)+'2'].control), "|")
 					l_ind += 1
 				elif (x%5 == 3):
-					print "{: >10}{: <6}{: <4}".format("", "|RTIO: ", round(self.cell_list[str(first_letter)+'0'].ratio,2)),
-					print "{: <6}{: <4}".format("|RTIO: ", round(self.cell_list[str(first_letter)+'1'].ratio, 2)),
-					print "{: <6}{: <4}{: >2}".format("|RTIO: ", round(self.cell_list[str(first_letter)+'2'].ratio, 2), "|")
+					print "{: >10}{: <6}{: <4}".format("", "|RTIO: ", round(self.cell_list[str(first_letter)+'0'].ratio, 1)),
+					print "{: <6}{: <4}".format("|RTIO: ", round(self.cell_list[str(first_letter)+'1'].ratio, 1)),
+					print "{: <6}{: <4}{: >2}".format("|RTIO: ", round(self.cell_list[str(first_letter)+'2'].ratio, 1), "|")
 				elif (x%5 == 4):
-					print "{: >10}{: <6}{: <4}".format("", "|RISK: ", round(self.cell_list[str(first_letter)+'0'].risk,2)),
-					print "{: <6}{: <4}".format("|RISK: ", round(self.cell_list[str(first_letter)+'1'].risk, 2)),
-					print "{: <6}{: <4}{: >2}".format("|RISK: ", round(self.cell_list[str(first_letter)+'2'].risk, 2), "|")
+					print "{: >10}{: <6}{: <4}".format("", "|RISK: ", int(self.cell_list[str(first_letter)+'0'].risk)),
+					print "{: <6}{: <4}".format("|RISK: ", int(self.cell_list[str(first_letter)+'1'].risk)),
+					print "{: <6}{: <4}{: >2}".format("|RISK: ", int(self.cell_list[str(first_letter)+'2'].risk), "|")
 				else:
 					print "{: >19} {: >9} {: >9} {: >9}".format("|", "|", "|", "|")
 		print

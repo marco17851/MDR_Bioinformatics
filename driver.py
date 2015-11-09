@@ -9,12 +9,12 @@ test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
 new_cells = Cell(2, 1.0, 3)
 test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
 keys = make_keys(3, 2)
-list_c = new_cells.make_cells(test_samples, keys)
+dict_c = new_cells.make_cells(test_samples, keys)
 SNPs_of_interest = ["SNP1", "SNP4"]
-list_d = new_cells.calc_cells(test_samples, SNPs_of_interest, list_c)
+dict_d = new_cells.calc_cells(test_samples, SNPs_of_interest, dict_c)
 
 # Marco's visualization in 2D only.
-cel = MatrixGraphic(list_d, SNPs_of_interest)
+cel = MatrixGraphic(dict_d, SNPs_of_interest)
 for x in range(1):
 	cel.printGraphics()
 

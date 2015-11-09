@@ -65,4 +65,18 @@ class Cell:
                     cells[SNP_key].control += 1
                 else:
                     cells[SNP_key].case += 1
+                    
+        # Calculate case-control ratio of each cell
+        for cell in cells:
+            # Beware of division by 0 where no control cases (set 0.01 instead)
+            if cells[cell].control == 0:
+                cells[cell].ratio = cells[cell].case/0.1
+            else:
+                cells[cell].ratio = cells[cell].case/cells[cell].control
+            # If case control ratio above threshold, high risk.            
+            if cells[cell].ratio > self.T:
+                cells[cell].risk = 1
+            elif cells[cell].ratio <= self.T:
+                cells[cell].risk = 0
+        
         return cells
