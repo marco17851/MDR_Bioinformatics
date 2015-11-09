@@ -3,10 +3,10 @@ from cell import *
 
 # Visualization for the 2-dimensional space of two factors 
 class MatrixGraphic:
-	def __init__(self, cells, top, side):
+	def __init__(self, cells, SNPs):
 		self.cell_list = cells
-		self.top_name = top
-		self.side_name = side
+		self.top_name = SNPs[0]
+		self.side_name = SNPs[1]
 
 	# Prints the 2-dimensional space of two factors
 	def printGraphics(self):
@@ -61,9 +61,10 @@ new_cells = Cell(2, 1.0, 3)
 test_samples = Sample.read("data/Practice Data - Combined.tsv", "\t")
 keys = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
 list_c = new_cells.make_cells(test_samples, keys)
-list_d = new_cells.calc_cells(test_samples, ["SNP1", "SNP4"], list_c)
+SNPs_of_interest = ["SNP1", "SNP4"]
+list_d = new_cells.calc_cells(test_samples, SNPs_of_interest, list_c)
 
-cel = MatrixGraphic(list_d, "SNP1", "SNP4")
+cel = MatrixGraphic(list_d, SNPs_of_interest)
 for x in range(1):
 	cel.printGraphics()
 
