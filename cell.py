@@ -19,17 +19,10 @@ class Cell:
         self.ratio = 0     # What is case-control ratio?
         self.risk = -1     # Either low-risk or high-risk (0 or 1), or -1 is not enough data to calculate
 
-    # Helper function for make_cells dictionary cells.
-    # If 3 genotypes (0, 1, 2) possible and 2 SNPs examined, keys are 00, 01, 02, 10, 11, 12, 20, 21, 22.
-    def make_keys(self, num_genotypes):
-        keys = ['00', '01', '02', '10', '11', '12', '20', '21', '22']
-        
-        return keys
-
     # Make matrix comparing a single combo of SNPs in N-dimensional space
     # For example, let's compare SNP1 and SNP4 from Practice Data
     # Takes samples data from csv reader and list of SNPs we are combining (for example, SNP1 and SNP4)
-    def make_cells(self, samples, keys):
+    def make_cells(self, keys):
         # Dictionary to store each individual cell (combo of SNPs).
         # Key: Genotype at those SNPs
         # For example, key "00" means homozygous deficient in first SNP and second SNP.
@@ -38,7 +31,6 @@ class Cell:
         cells = {}
         # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
         num_cells = int(math.pow(self.num_genotypes, self.N))
-        print num_cells
         for n in range(num_cells):
             new_cell = Cell(self.N, self.T, self.num_genotypes)
             key = keys[n]
@@ -51,7 +43,7 @@ class Cell:
         # For case and control (only 2 phenotypes), then for each person in samples data: 
         for phenotype in samples:
 #            print "\nPhenotype: ", phenotype
-            for i in range(len(samples[phenotype])):
+            for i in range(len(samples)):
 #                print "Person: ", i
                 person = samples[phenotype][i]
                 
