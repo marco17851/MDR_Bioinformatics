@@ -1,5 +1,7 @@
 import csv
 import numpy as np
+#MAX_SNP_NUM = 24315
+MAX_SNP_NUM = 20
 
 class Sample:
     def __init__(self, snps, phenotype):
@@ -26,7 +28,7 @@ class Sample:
                 snp_names = np.array([snp for snp in row])
                 first_row = False
             else:
-                snp_dir = {snp_names[i]: int(row[i]) for i in range(24315)}
+                snp_dir = {snp_names[i]: int(row[i]) for i in range(MAX_SNP_NUM)}
                 phenotype = int(row[-1])
                 samples.append(Sample(snp_dir, phenotype))
 
