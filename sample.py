@@ -18,7 +18,7 @@ class Sample:
           list of Samples
         """
         reader = csv.reader(open(filename,'r'), delimiter=delimiter)
-        samples = {}
+        samples = []
         snp_names = []
         first_row = True
         for row in reader:
@@ -26,11 +26,8 @@ class Sample:
                 snp_names = np.array([snp for snp in row])
                 first_row = False
             else:
-                snp_dir = {snp_names[i]: int(row[i]) for i in range(len(row)-1)}
+                snp_dir = {snp_names[i]: int(row[i]) for i in range(24315)}
                 phenotype = int(row[-1])
-                if phenotype not in samples:
-                    samples[phenotype] = [Sample(snp_dir, phenotype)]
-                else:
-                    samples[phenotype].append(Sample(snp_dir, phenotype))
+                samples.append(Sample(snp_dir, phenotype))
 
         return samples
