@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 #MAX_SNP_NUM = 24315
-MAX_SNP_NUM = 20
+MAX_SNP_NUM = 5
 
 class Sample:
     def __init__(self, snps, phenotype):

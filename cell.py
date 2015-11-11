@@ -5,7 +5,6 @@ Created on Thu Nov 05 12:11:40 2015
 @author: Lynn
 """
 # To do some math (calculate nCr)
-import scipy as scipy
 import math as math
 
 # Multifactor cell that stores SNP information, calculates case-control ratio.
@@ -27,7 +26,6 @@ class Cell:
         # Key: Genotype at those SNPs
         # For example, key "00" means homozygous deficient in first SNP and second SNP.
         # Value: A Cell object
-        # For example, this cell happens to have 
         cells = {}
         # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
         num_cells = int(math.pow(self.num_genotypes, self.N))
@@ -41,31 +39,31 @@ class Cell:
     # Given a bunch of Samples, put them in buckets (the cells) by appropriate SNP genotype
     def calc_cells(self, samples, SNPs_to_examine, cells):
         # For case and control (only 2 phenotypes), then for each person in samples data: 
-        for phenotype in samples:
-#            print "\nPhenotype: ", phenotype
-            for i in range(len(samples)):
-#                print "Person: ", i
-                person = samples[phenotype][i]
+        for i in range(len(samples)):
+#            print "Person: ", i
+            person = samples[i]
                 
-                # Determine key based on what genotype each person has at SNPS_to_examine
-                SNP_key = ""
-                for SNP_to_examine in SNPs_to_examine:
-                    SNP_key += str(person.snps[SNP_to_examine])
+            # Determine key based on what genotype each person has at SNPS_to_examine
+            SNP_key = ""
+            for SNP_to_examine in SNPs_to_examine:
+                SNP_key += str(person.snps[SNP_to_examine])
                 
-                # Bucket people using key to dictionary cells
- #               print SNP_key
-                if phenotype == 0:                
-                    cells[SNP_key].control += 1
-                else:
-                    cells[SNP_key].case += 1
+            # Bucket people using key to dictionary cells
+ #          print SNP_key
+            if person.phenotype == 0:                
+                cells[SNP_key].control += 1
+            else:
+                cells[SNP_key].case += 1
                     
         # Calculate case-control ratio of each cell
         for cell in cells:
+            # Normalize case & control counts because number of cases not same as number of controls
+            # TO DO
             # Beware of division by 0 where no control cases (set 0.01 instead)
             if cells[cell].control == 0:
                 cells[cell].ratio = cells[cell].case/0.1
             else:
-                cells[cell].ratio = cells[cell].case/cells[cell].control
+                cells[cell].ratio = cells[cell].case/float(cells[cell].control)
             # If case control ratio above threshold, high risk.            
             if cells[cell].ratio > self.T:
                 cells[cell].risk = 1

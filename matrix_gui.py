@@ -1,12 +1,11 @@
-from sample import *
 from cell import *
 
 # Visualization for the 2-dimensional space of two factors 
 class MatrixGraphic:
 	def __init__(self, cells, SNPs):
 		self.cell_list = cells
-		self.top_name = SNPs[0]
-		self.side_name = SNPs[1]
+		self.top_name = SNPs[1]
+		self.side_name = SNPs[0]
 
 	# Prints the 2-dimensional space of two factors
 	def printGraphics(self):

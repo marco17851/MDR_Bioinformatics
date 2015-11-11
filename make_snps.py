@@ -1,4 +1,3 @@
-
 # sample: pass in sample class object (contains snps information right??)
 # combo_size: pass in size of SNP combos (1-4)
 def make_snpCombos (sample, combo_size):
@@ -96,6 +95,3 @@ def make_snpCombos (sample, combo_size):
         comboList.append(snps)
 
   return comboList
-
-print make_snpCombos(4)
-
