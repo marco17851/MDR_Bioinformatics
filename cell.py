@@ -9,10 +9,7 @@ import math as math
 
 # Multifactor cell that stores SNP information, calculates case-control ratio.
 class Cell:
-    def __init__(self, N = 2, T = 1.0, num_genotypes = 3):
-        self.N = N          # Number of SNPs we investigate
-        self.T = T         # Threshold for case-control ratio
-        self.num_genotypes = num_genotypes      # Genotypes possible at a SNP (AA, Aa, aa)
+    def __init__(self):
         self.case = 0      # Who has disease?
         self.control = 0   # Who doesn't
         self.ratio = 0     # What is case-control ratio?
@@ -21,23 +18,28 @@ class Cell:
     # Make matrix comparing a single combo of SNPs in N-dimensional space
     # For example, let's compare SNP1 and SNP4 from Practice Data
     # Takes samples data from csv reader and list of SNPs we are combining (for example, SNP1 and SNP4)
-    def make_cells(self, keys):
+    # N = Number of SNPs we investigate
+    # num_genotypes =  Genotypes possible at a SNP (AA, Aa, aa)
+    @staticmethod
+    def make_cells(keys, N = 2, num_genotypes = 3):
         # Dictionary to store each individual cell (combo of SNPs).
         # Key: Genotype at those SNPs
         # For example, key "00" means homozygous deficient in first SNP and second SNP.
         # Value: A Cell object
         cells = {}
         # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
-        num_cells = int(math.pow(self.num_genotypes, self.N))
+        num_cells = int(math.pow(num_genotypes, N))
         for n in range(num_cells):
-            new_cell = Cell(self.N, self.T, self.num_genotypes)
+            new_cell = Cell()
             key = keys[n]
             cells[key] = new_cell
         
         return cells
         
     # Given a bunch of Samples, put them in buckets (the cells) by appropriate SNP genotype
-    def calc_cells(self, samples, SNPs_to_examine, cells):
+    # T = Threshold for case-control ratio
+    @staticmethod
+    def calc_cells(samples, SNPs_to_examine, cells, T = 1.0):
         # For case and control (only 2 phenotypes), then for each person in samples data: 
         for i in range(len(samples)):
 #            print "Person: ", i
@@ -65,10 +67,9 @@ class Cell:
             else:
                 cells[cell].ratio = cells[cell].case/float(cells[cell].control)
             # If case control ratio above threshold, high risk.            
-            if cells[cell].ratio > self.T:
+            if cells[cell].ratio > T:
                 cells[cell].risk = 1
-            elif cells[cell].ratio <= self.T:
+            elif cells[cell].ratio <= T:
                 cells[cell].risk = 0
         
         return cells
-        

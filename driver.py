@@ -19,7 +19,7 @@ samples, phenotype_numbers = Sample.read("data/Small SNPs - Sheet2 (49 Samples, 
 
 # To test how cell class works.
 # Look at pairs of SNPs, threshold of case: control is 1.0, 3 genotypes per SNP.
-new_cells = Cell(N, T, NUM_GENOTYPES)
+new_cell = Cell()
 # Make genotype keys of 3 genotypes, and up to 4 SNPs
 keys = make_keys(NUM_GENOTYPES, N)
 # Just pass the first sample in samples (index by phenotype, then by person)
@@ -27,9 +27,9 @@ keys = make_keys(NUM_GENOTYPES, N)
 #print SNPs_OF_INTEREST_LIST
 #SNPs_OF_INTEREST = SNPs_OF_INTEREST_LIST[0]
 # Make n-dimensional 'space' matrix where each cell represents a unique combination of genotypes at SNPs_OF_INTEREST
-dict_c = new_cells.make_cells(keys)
+dict_c = new_cell.make_cells(keys, N, NUM_GENOTYPES)
 # Calculate case, control, ratio, risk of all cells in matrix
-dict_d = new_cells.calc_cells(samples, SNPs_OF_INTEREST, dict_c)
+dict_d = new_cell.calc_cells(samples, SNPs_OF_INTEREST, dict_c, T)
 
 #for c in dict_d:
 #    print "CELL: "
