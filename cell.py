@@ -37,9 +37,13 @@ class Cell:
         return cells
         
     # Given a bunch of Samples, put them in buckets (the cells) by appropriate SNP genotype
+    # samples = Used to populate each genotype combo cell
+    # phenotype_numbers = Used to normalize case & control before calculating ratio because more cases than controls
+    # SNPs_to_examine = Which combo of SNPs to make cells
+    # cells = Already made empty, now populate with case, control, ratio, and risk
     # T = Threshold for case-control ratio
     @staticmethod
-    def calc_cells(samples, SNPs_to_examine, cells, T = 1.0):
+    def calc_cells(samples, phenotype_numbers, SNPs_to_examine, cells, T = 1.0):
         # For case and control (only 2 phenotypes), then for each person in samples data: 
         for i in range(len(samples)):
 #            print "Person: ", i
@@ -59,13 +63,14 @@ class Cell:
                     
         # Calculate case-control ratio of each cell
         for cell in cells:
-            # Normalize case & control counts because number of cases not same as number of controls
-            # TO DO
+            # Before calculating ratio, Normalize case & control because number of cases >> number of controls
+            norm_case = cells[cell].case/float(phenotype_numbers[1])
+            norm_control = cells[cell].control/float(phenotype_numbers[0])
             # Beware of division by 0 where no control cases (set 0.01 instead)
             if cells[cell].control == 0:
-                cells[cell].ratio = cells[cell].case/0.1
+                cells[cell].ratio = norm_case/0.1
             else:
-                cells[cell].ratio = cells[cell].case/float(cells[cell].control)
+                cells[cell].ratio = norm_case/norm_control
             # If case control ratio above threshold, high risk.            
             if cells[cell].ratio > T:
                 cells[cell].risk = 1
