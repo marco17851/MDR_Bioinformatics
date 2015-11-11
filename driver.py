@@ -15,7 +15,7 @@ SNPs_OF_INTEREST = ["SNP5", "SNP2"]
 # THE REAL DEAL: First 2 SNPs are rs3094315 and rs4475691
 SNPs_OF_INTEREST = ["rs3094315", "rs4475691"]
 #samples = Sample.read("data/ADNI_cluster_01_forward_757LONI_qc_shared_with_ADNI2_cglformat.txt", '\t')
-samples = Sample.read("data/Small SNPs - Sheet2 (49 Samples, 5 SNPs).tsv", "\t")
+samples, phenotype_numbers = Sample.read("data/Small SNPs - Sheet2 (49 Samples, 5 SNPs).tsv", "\t")
 
 # To test how cell class works.
 # Look at pairs of SNPs, threshold of case: control is 1.0, 3 genotypes per SNP.

@@ -21,6 +21,7 @@ class Sample:
         """
         reader = csv.reader(open(filename,'r'), delimiter=delimiter)
         samples = []
+        num_dict = {}
         snp_names = []
         first_row = True
         for row in reader:
@@ -31,5 +32,9 @@ class Sample:
                 snp_dir = {snp_names[i]: int(row[i]) for i in range(MAX_SNP_NUM)}
                 phenotype = int(row[-1])
                 samples.append(Sample(snp_dir, phenotype))
+                if phenotype in num_dict:
+                    num_dict[phenotype] += 1
+                else:
+                    num_dict[phenotype] = 1
 
-        return samples
+        return samples, num_dict
