@@ -14,14 +14,20 @@ class MatrixGraphic:
 		letters = ['AA', 'Aa', 'aa']
 		l_ind = 0
 
+		# Print upper part of matrix
 		print
 		print "{: >30}".format(str.upper(self.top_name))
 		print
 		print "{: >18} {: >11} {: >10}".format("AA","Aa","aa")
 
+		# Print the next 16 lines which contain walls for the matrixes and the cell information
 		for x in range(0, 16):
 			if (x%5 == 0):
-				print "{: >47}".format("|-----------|-----------|-----------|")
+				# Prints the borders of the cells
+				if (x == 0 or x == 15):
+					print "{: >46}".format("-----------------------------------")
+				else:
+					print "{: >47}".format("|-----------|-----------|-----------|")
 			else:
 				first_letter = 0
 				second_letter = 0
@@ -31,6 +37,7 @@ class MatrixGraphic:
 				elif x >=5:
 					first_letter = 1
 
+				# Prints the cell information
 				if (x%5 == 1):
 					print "{: >10}{: <6}{: <4}".format("", "|CASE: ", int(self.cell_list[str(first_letter)+'0'].case)),
 					print "{: <6}{: <4}".format("|CASE: ", int(self.cell_list[str(first_letter)+'1'].case)),

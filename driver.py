@@ -3,6 +3,7 @@ from cell import *
 from make_keys import *
 from make_snps import *
 from matrix_gui import *
+from predictor import *
 
 # CHANGE ME WHEN RUNNING
 N = 2
@@ -42,6 +43,17 @@ if N == 2:
     cel = MatrixGraphic(dict_d, SNPs_OF_INTEREST)
     for x in range(1):
         cel.printGraphics()
+
+
+pred_list = getPrediction(dict_d, samples, SNPs_OF_INTEREST)
+correct = 0
+for x in range(0, len(pred_list)):
+	print "Phenotype: ", samples[x].phenotype, "Prediction: ", pred_list[x]
+	if samples[x].phenotype == pred_list[x]:
+		correct += 1
+
+print "Percentage Correct: ", float(correct)/len(samples)
+
 
 # Old driver
 #for pheno in samples:
