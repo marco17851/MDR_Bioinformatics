@@ -38,6 +38,7 @@ class Cell:
         cells = {}
         # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
         num_cells = int(math.pow(self.num_genotypes, self.N))
+        print num_cells
         for n in range(num_cells):
             new_cell = Cell(self.N, self.T, self.num_genotypes)
             key = keys[n]
@@ -80,3 +81,4 @@ class Cell:
                 cells[cell].risk = 0
         
         return cells
+        
