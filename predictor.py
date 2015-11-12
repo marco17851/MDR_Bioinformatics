@@ -28,4 +28,4 @@ def getPrediction(cells, samples, SNPs):
         risk = cells[index_string].risk				# Obtain the risk and append to list
         prediction_list.append(risk)
 
-    return prediction_list
+	return prediction_list
