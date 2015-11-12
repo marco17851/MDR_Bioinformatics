@@ -4,4 +4,3 @@ practice_stuff.py
 *.pyc
 .DS_Store
 *.xlsx
-data/Small SNPs.xlsx
