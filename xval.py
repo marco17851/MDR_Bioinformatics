@@ -3,6 +3,7 @@ from random import shuffle
 
 def xval(sample_list, nfold):
     folds = []
+    error_rates = {}
     shuffled_samples = list(sample_list)
     shuffle(shuffled_samples)
     #create nfold folds
@@ -12,10 +13,24 @@ def xval(sample_list, nfold):
     for i in range(len(shuffled_samples)):
         folds[i%nfold].append(shuffled_samples[i])
 
-    #make this happen nfold times
-        #make a training set and a test fold
-        #make cell and create predictions using the training set
-        #see if the predictions are true for the test fold
+    #for each fold, perform mdr using the fold as the test case
+    for i in range(len(folds)):
+        test = folds[i]
+        training = []
+        #make a training list of the other folds
+        for j in range(len(folds)):
+            if i != j:
+                training.extend(folds[j])
+        current_error_rates = mdr(test, training)#make cell and determine the error rates for each snp combination
+        #sum the error_rates for each snp combination across the folds
+        for snp_combo in current_error_rates:
+            if snp_combo in error_rates:
+                error_rates[snp_combo] += current_error_rates[snp_combo]
+            else:
+                error_rates[snp_combo] = current_error_rates[snp_combo]
+    #divide the error rates by the number of folds in order to average them
+    error_rates = {x: error_rates[x]/nfold for x in error_rates}
+    return error_rates
 
 
 def mdr(test, train):
@@ -24,6 +39,6 @@ def mdr(test, train):
       train (list of Sample): possible neighbors whose labels will be used
       test (list of Sample): instances whose labels will be inferred from neighbors
     Returns:
-      list of int: phenotypes for test instances, in same order
+      dictionary: the error rate for every possible snp combination
     """
     pass
