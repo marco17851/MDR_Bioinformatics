@@ -3,3 +3,5 @@ data/ADNI_cluster_01_forward_757LONI_qc_shared_with_ADNI2_cglformat.txt
 practice_stuff.py
 *.pyc
 .DS_Store
+*.xlsx
+data/Small SNPs.xlsx
