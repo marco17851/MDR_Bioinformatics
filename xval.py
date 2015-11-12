@@ -2,13 +2,11 @@ from real_sample import Sample
 from random import shuffle
 
 def xval(sample_list, nfold):
-    folds = []
     error_rates = {}
     shuffled_samples = list(sample_list)
     shuffle(shuffled_samples)
-    #create nfold folds
-    for x in range(nfold):
-        folds.append([])
+    folds = [[] for i in range(nfold)]
+
     #fill in the folds
     for i in range(len(shuffled_samples)):
         folds[i%nfold].append(shuffled_samples[i])
