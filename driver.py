@@ -7,7 +7,7 @@ from predictor import *
 
 # CHANGE ME WHEN RUNNING
 N = 2
-T = 0
+T = 1.0     # Best threshold is at 0.9 actually (allow some error?)
 NUM_GENOTYPES = 3
 
 # USE ME: For easy Practice Data
@@ -31,14 +31,15 @@ keys = make_keys(NUM_GENOTYPES, N)
 dict_c = new_cell.make_cells(keys, N, NUM_GENOTYPES)
 # Calculate case, control, ratio, risk of all cells in matrix
 SNPs_OF_INTEREST_LIST = make_snpCombos(samples[0], N)
+avg_percent_correct = 0.0
 for SNPs_OF_INTEREST in SNPs_OF_INTEREST_LIST:
     dict_d = new_cell.calc_cells(samples, phenotype_numbers, SNPs_OF_INTEREST, dict_c, T)
     print "SNPs_OF_INTEREST: ", SNPs_OF_INTEREST
-    # Marco's visualization in 2D only.
-    if N == 2:
-        cel = MatrixGraphic(dict_d, SNPs_OF_INTEREST)
-        for x in range(1):
-            cel.printGraphics()
+#    # Marco's visualization in 2D only.
+#    if N == 2:
+#        cel = MatrixGraphic(dict_d, SNPs_OF_INTEREST)
+#        for x in range(1):
+#            cel.printGraphics()
     
     # Marco's prediction
     pred_list = getPrediction(dict_d, samples, SNPs_OF_INTEREST)
@@ -46,8 +47,12 @@ for SNPs_OF_INTEREST in SNPs_OF_INTEREST_LIST:
     for x in range(0, len(pred_list)):
 #        print "Phenotype: ", samples[x].phenotype, "Prediction: ", pred_list[x]
         if samples[x].phenotype == pred_list[x]:
-            print "Index Correct: ", x            
+#            print "!Index Correct: ", x            
             correct += 1
 
     print "Correct: ", correct
     print "Percentage Correct: ", float(correct)/len(samples)
+    avg_percent_correct += float(correct)/len(samples)
+
+# Here is the average correctness across all SNP combos in SNPs_OF_INTEREST_LIST
+print avg_percent_correct/len(SNPs_OF_INTEREST_LIST)
