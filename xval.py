@@ -63,7 +63,8 @@ def mdr(test, train, phenotype_numbers, threshold = 1.0):
             #make the predictions for the current test set
             pred_list = getPrediction(dict_d, test, combo)
             #calculate the error rate and save to dictionary
-            incorrect_count = 0.
+            incorrect_count = 0
+            print len(test), len(pred_list)
             for i in range(len(test)):
                 if test[i].phenotype != pred_list[i]:
                     incorrect_count += 1.
