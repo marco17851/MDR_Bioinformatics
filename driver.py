@@ -1,7 +1,7 @@
-from real_sample import *
-from cell import *
-from make_keys import *
-from make_snps import *
+from full_sample import FullSample
+from cell import Cell
+from make_keys import make_keys
+from make_snps import make_snpCombos
 from matrix_gui import *
 from predictor import *
 
@@ -16,7 +16,7 @@ NUM_GENOTYPES = 3
 
 # THE REAL DEAL: First 2 SNPs are rs3094315 and rs4475691
 #(samples, phenotype_numbers) = Sample.read("data/ADNI_cluster_01_forward_757LONI_qc_shared_with_ADNI2_cglformat.txt", '\t')
-(samples, phenotype_numbers) = Sample.read("data/Small SNPs - Sheet2 (49 Samples, 5 SNPs).tsv", "\t")
+(samples, phenotype_numbers) = FullSample.read("data/Small SNPs - Sheet2 (49 Samples, 5 SNPs).tsv", "\t")
 #SNPs_OF_INTEREST = ["rs3094315", "rs4475691"]       # A, B
 #SNPs_OF_INTEREST = ["rs3748597", "rs3094315"]       # C, A
 #SNPs_OF_INTEREST = ["rs9777703", "rs3748597"]       # E, C

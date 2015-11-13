@@ -1,7 +1,7 @@
 import csv
 import numpy as np
 
-class Sample:
+class FullSample:
     def __init__(self, snps, phenotype):
         self.snps = snps
         self.phenotype = phenotype
@@ -18,7 +18,8 @@ class Sample:
           list of Samples
         """
         reader = csv.reader(open(filename,'r'), delimiter=delimiter)
-        samples = {}
+        samples = []
+        num_dict = {}
         snp_names = []
         first_row = True
         for row in reader:
@@ -28,9 +29,10 @@ class Sample:
             else:
                 snp_dir = {snp_names[i]: int(row[i]) for i in range(len(row)-1)}
                 phenotype = int(row[-1])
-                if phenotype not in samples:
-                    samples[phenotype] = [Sample(snp_dir, phenotype)]
+                samples.append(FullSample(snp_dir, phenotype))
+                if phenotype in num_dict:
+                    num_dict[phenotype] += 1
                 else:
-                    samples[phenotype].append(Sample(snp_dir, phenotype))
+                    num_dict[phenotype] = 1
 
-        return samples
+        return samples, num_dict

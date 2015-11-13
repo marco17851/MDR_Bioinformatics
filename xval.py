@@ -1,4 +1,4 @@
-from real_sample import Sample
+from selected_sample import SelectedSample
 from random import shuffle
 from make_snps import make_snpCombos
 from cell import Cell
@@ -64,7 +64,6 @@ def mdr(test, train, phenotype_numbers, threshold = 1.0):
             pred_list = getPrediction(dict_d, test, combo)
             #calculate the error rate and save to dictionary
             incorrect_count = 0
-            print len(test), len(pred_list)
             for i in range(len(test)):
                 if test[i].phenotype != pred_list[i]:
                     incorrect_count += 1.
