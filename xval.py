@@ -8,7 +8,7 @@ from predictor import getPrediction
 MAX_NUM_SNPS = 4
 NUM_GENOTYPES = 3
 
-def xval(sample_list, phenotype_numbers, nfold, threshold = 1.0):
+def xval(sample_list, phenotype_numbers, nfold, ndimensions = 1, threshold = 1.0):
     error_rates = {}
     shuffled_samples = list(sample_list)
     shuffle(shuffled_samples)
@@ -27,7 +27,7 @@ def xval(sample_list, phenotype_numbers, nfold, threshold = 1.0):
             if i != j:
                 training.extend(folds[j])
         #make cell and determine the error rates for each snp combination
-        current_error_rates = mdr(test, training, phenotype_numbers, threshold)
+        current_error_rates = mdr(test, training, phenotype_numbers, ndimensions, threshold)
         #sum the error_rates for each snp combination across the folds
         for snp_combo in current_error_rates:
             if snp_combo in error_rates:
@@ -39,7 +39,7 @@ def xval(sample_list, phenotype_numbers, nfold, threshold = 1.0):
     return error_rates
 
 
-def mdr(test, train, phenotype_numbers, threshold = 1.0):
+def mdr(test, train, phenotype_numbers, ndimensions = 1, threshold = 1.0):
     """Assign a phenotype to each test instance, based on its ________ in the training set and calculate error rates.
     Args:
       train (list of Sample): possible neighbors whose labels will be used
@@ -48,8 +48,9 @@ def mdr(test, train, phenotype_numbers, threshold = 1.0):
       dictionary: the error rate for every possible snp combination
     """
     error_rates = {}
+    highest_num_snps = min(MAX_NUM_SNPS, ndimensions)
     #for every possible number of dimensions (1-4)
-    for num_snps in range(1, MAX_NUM_SNPS+1):
+    for num_snps in range(1, highest_num_snps+1):
         combo_list = make_snpCombos(train[0], num_snps)
         #for every possible combination of n-dimensional snps
         for combo in combo_list:
