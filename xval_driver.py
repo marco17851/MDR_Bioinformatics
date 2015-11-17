@@ -65,11 +65,13 @@ chr19_75_indices = range(chr19_75_start, chr19_75_end)
 mito_indices = range(MITO_DNA_START_INDEX, MITO_DNA_END_INDEX+1)
 chr11_19_indices = list(chr11_50_indices)
 chr11_19_indices.extend(chr19_75_indices)
-chr11_19_indices.extend(mito_indices)
+chr11_19_mito_indices = list(chr11_19_indices)
+chr11_19_mito_indices.extend(mito_indices)
 
 files= ["data/chromosome11.csv", "data/chromosome19.csv", "data/chromosome11,19,mito.csv"]
 dimensions = [1, 2, 3]
-list_of_indices = [chr11_50_indices, chr19_75_indices, chr11_19_indices]
+# list_of_indices = [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_mito_indices]
+list_of_indices = [chr11_19_indices, chr11_19_mito_indices]
 
 for indices in list_of_indices:
     for dim in dimensions:
