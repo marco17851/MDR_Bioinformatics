@@ -8,12 +8,13 @@ class SelectedSample:
         self.phenotype = phenotype
 
     @staticmethod
-    def read(filename, delimiter=','):
+    def read(filename, indices, delimiter=','):
         """Read instances from the file, in delimited (default: comma-separated) format.
         If the first column has a ':' in it, the name is the part before and the label is the part after;
         else the name is the whole thing and the label is None.
         Args:
           filename (string): path to file
+          indices (list of integers): inclusive list of the indices that we wish to examine
           delimeter (string): separates columns in file
         Returns:
           list of Samples
@@ -28,7 +29,7 @@ class SelectedSample:
                 snp_names = np.array([snp for snp in row])
                 first_row = False
             else:
-                snp_dir = {snp_names[i]: int(row[i]) for i in range(MAX_SNP_NUM)}
+                snp_dir = {snp_names[i]: int(row[i]) for i in indices}
                 phenotype = int(row[-1])
                 samples.append(SelectedSample(snp_dir, phenotype))
                 if phenotype in num_dict:
