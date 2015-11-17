@@ -1,3 +1,7 @@
+# Makes genotype keys for cell class to use
+# Call this before calling make_cells
+# For example, if we are looking at a pair of SNPs:
+# Genotypes would be "00, 01, 02, 10, 11, 12, 20, 21, 22" for all 9 genotype combos possible
 def make_keys (num_genotypes, num_snps):
 
   # initialize list of keys
@@ -54,5 +58,3 @@ def make_keys (num_genotypes, num_snps):
             keys.append(key)
 
   return keys
-
-
