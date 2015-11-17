@@ -4,30 +4,31 @@ Created on Thu Nov 05 12:11:40 2015
 
 @author: Lynn
 """
-# To do some math (calculate nCr)
+# To do some math (calculate exponents).
 import math as math
 
 # Multifactor cell that stores SNP information, calculates case-control ratio.
 class Cell:
     def __init__(self):
-        self.case = 0      # Who has disease?
-        self.control = 0   # Who doesn't
-        self.ratio = 0     # What is case-control ratio?
-        self.risk = -1     # Either low-risk or high-risk (0 or 1), or -1 is not enough data to calculate
+        self.case = 0      # Number of people (aka Sample objects) w/ disease
+        self.control = 0   # Number of Samples w/o disease
+        self.ratio = 0.0   # Normalized case:control ratio
+        self.risk = -1     # Either low- or high-risk (0 or 1). -1 means error
 
     # Make matrix comparing a single combo of SNPs in N-dimensional space
-    # For example, let's compare SNP1 and SNP4 from Practice Data
-    # Takes samples data from csv reader and list of SNPs we are combining (for example, SNP1 and SNP4)
+    # For example, SNP1 & SNP2 make a pair so N = 2
+    # ARGS:
+    # keys = List of strings corresponding to possible combos genotypes
+    # So, "00" means genotype of 0 (homozygous dominant) at SNP1 and SNP2
     # N = Number of SNPs we investigate
     # num_genotypes =  Genotypes possible at a SNP (AA, Aa, aa)
     @staticmethod
-    def make_cells(keys, N = 2, num_genotypes = 3):
-        # Dictionary to store each individual cell (combo of SNPs).
+    def make_cells(keys, N = 1, num_genotypes = 3):
+        # Dictionary to store each cell (genotype combo for SNPs)
         # Key: Genotype at those SNPs
-        # For example, key "00" means homozygous deficient in first SNP and second SNP.
-        # Value: A Cell object
+        # Value: Cell object
         cells = {}
-        # Suppose we have 3 alleles (which we do) and N = 2, then we need 3C2 cells
+        # Suppose we have 3 genotypes and N = 2, then we need 3^2 cells
         num_cells = int(math.pow(num_genotypes, N))
         for n in range(num_cells):
             new_cell = Cell()
@@ -36,37 +37,37 @@ class Cell:
         
         return cells
         
-    # Given a bunch of Samples, put them in buckets (the cells) by appropriate SNP genotype
-    # samples = Used to populate each genotype combo cell
-    # phenotype_numbers = Used to normalize case & control before calculating ratio because more cases than controls
-    # SNPs_to_examine = Which combo of SNPs to make cells
-    # cells = Already made empty, now populate with case, control, ratio, and risk
+    # Given Samples, put them in cells by appropriate SNPs genotype
+    # samples = List of samples used to populate each genotype combo cell
+    # phenotype_numbers = Dictionary of number of cases & controls to normalize before calculating ratio
+    # SNPs_to_examine = List of SNPs used to make cells
+    # cells = Dictionary of empty cells to calculate case, control, ratio, risk
     # T = Threshold for case-control ratio
     @staticmethod
     def calc_cells(samples, phenotype_numbers, SNPs_to_examine, cells, T = 1.0):
-        # For case and control (only 2 phenotypes), then for each person in samples data: 
-        for i in range(len(samples)):
+        # For each sample (aka a single person, renamed to be clearer):
+        for sample in samples:
 #            print "Person: ", i
-            person = samples[i]
+            person = sample
                 
-            # Determine key based on what genotype each person has at SNPS_to_examine
+            # Determine key based on genotype each sample has at SNPS_to_examine
             SNP_key = ""
             for SNP_to_examine in SNPs_to_examine:
                 SNP_key += str(person.snps[SNP_to_examine])
                 
-            # Bucket people using key to dictionary cells
+            # Bucket people using key to the dictionary cells
  #          print SNP_key
-            if person.phenotype == 0:                
+            if person.phenotype == 0:         
                 cells[SNP_key].control += 1
             else:
                 cells[SNP_key].case += 1
                     
-        # Calculate case-control ratio of each cell
+        # Calculate case-control ratio for each cell
         for cell in cells:
-            # Before calculating ratio, Normalize case & control because number of cases >> number of controls
+            # Before calculating ratio, normalize because number of cases > number of controls
             norm_case = cells[cell].case/float(phenotype_numbers[1])
             norm_control = cells[cell].control/float(phenotype_numbers[0])
-            # Beware of division by 0 where no control cases (set 0.01 instead)
+            # Beware of division by 0 where no control cases (set 0.1 instead)
             if cells[cell].control == 0:
                 cells[cell].ratio = norm_case/0.1
             else:
