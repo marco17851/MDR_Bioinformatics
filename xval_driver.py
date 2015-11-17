@@ -57,29 +57,52 @@ chr11_50_start = SNP1_INDEX - 15
 chr11_50_end = chr11_50_start + 50
 #list of 50 indices for SNPs on chromosome 11 containing the SNPs of interest
 chr11_50_indices = range(chr11_50_start, chr11_50_end)
+
 #start and end indices of a list of 75 SNPs on chromosome 19
 chr19_75_start = SNP4_INDEX - 55
 chr19_75_end = chr19_75_start + 75
 #list of 75 indices for SNPs on chromosome 19 containing the SNPs of interest
 chr19_75_indices = range(chr19_75_start, chr19_75_end)
+
 mito_indices = range(MITO_DNA_START_INDEX, MITO_DNA_END_INDEX+1)
+
 chr11_19_indices = list(chr11_50_indices)
 chr11_19_indices.extend(chr19_75_indices)
+
 chr11_19_mito_indices = list(chr11_19_indices)
 chr11_19_mito_indices.extend(mito_indices)
 
-files= ["data/chromosome11.csv", "data/chromosome19.csv", "data/chromosome11,19,mito.csv"]
-dimensions = [1, 2, 3]
 # list_of_indices = [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_mito_indices]
 list_of_indices = [chr11_19_indices, chr11_19_mito_indices]
 
 for indices in list_of_indices:
-    for dim in dimensions:
+    for dim in [1,2]:
         start_time = datetime.now()
         print "TESTING with",len(indices), "indices in data/chromosome11,19,mito.csv -  10 folds,", dim, "dimensions, threshold = 1."
         (samples, phenotype_numbers) = SelectedSample.read("data/chromosome11,19,mito.csv", indices, ",")
         error_rates = xval(samples, phenotype_numbers, 10, dim, 1.)
-        file_name = "results/SelectedSample10folds" + str(dim) + "d" + str(len(indices)) + "indices.csv"
+        file_name = "results/SelectedSample-10folds" + str(dim) + "d" + str(len(indices)) + "indices.csv"
+        writer = csv.writer(open(file_name, 'w'), delimiter=',')
+        for key in error_rates:
+            info = list(key)
+            info.append(error_rates[key])
+            writer.writerow(info)
+            if error_rates[key] < .325:
+                print key, error_rates[key]
+        stop_time = datetime.now()
+        print "Elapsed time: ", stop_time - start_time
+
+        del error_rates, samples, phenotype_numbers
+
+        print "----------------------------------------------------------"
+
+for file in ["chromosome11.csv", "chromosome19.csv", "chromosome11,19,mito.csv"]:
+    for dimension in [2]:
+        start_time = datetime.now()
+        print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
+        (samples, phenotype_numbers) = FullSample.read("data/" + file, ",")
+        error_rates = xval(samples, phenotype_numbers, 10, dimension, 1.)
+        file_name = "results/FullSample-10folds" + str(dimension) + "d-" + str(file) + ".csv"
         writer = csv.writer(open(file_name, 'w'), delimiter=',')
         for key in error_rates:
             info = list(key)
@@ -93,24 +116,3 @@ for indices in list_of_indices:
         del error_rates, samples, phenotype_numbers
 
         print "----------------------------------------------------------"
-
-# for file in files:
-#     for dimension in dimensions:
-#         start_time = datetime.now()
-#         print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
-#         (samples, phenotype_numbers) = FullSample.read(file, ",")
-#         error_rates = xval(samples, phenotype_numbers, 10, dimension, 1.)
-#         file_name = "results/FullSample-10folds" + str(dimension) + "d-" + str(file) + ".csv"
-#         writer = csv.writer(open(file_name, 'w'), delimiter=',')
-#         for key in error_rates:
-#             info = list(key)
-#             info.extend(error_rates[key])
-#             writer.writerow(info)
-#             if error_rates[key] < .35:
-#                 print key, error_rates[key]
-#         stop_time = datetime.now()
-#         print "Elapsed time: ", stop_time - start_time
-#
-#         del error_rates, samples, phenotype_numbers
-#
-#         print "----------------------------------------------------------"
