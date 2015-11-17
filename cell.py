@@ -46,9 +46,8 @@ class Cell:
     @staticmethod
     def calc_cells(samples, phenotype_numbers, SNPs_to_examine, cells, T = 1.0):
         # For each sample (aka a single person, renamed to be clearer):
-        for sample in samples:
-#            print "Person: ", i
-            person = sample
+        for person in samples:
+#            print "Person: ", person
                 
             # Determine key based on genotype each sample has at SNPS_to_examine
             SNP_key = ""
