@@ -72,11 +72,8 @@ chr11_19_indices.extend(chr19_75_indices)
 chr11_19_mito_indices = list(chr11_19_indices)
 chr11_19_mito_indices.extend(mito_indices)
 
-# list_of_indices = [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_mito_indices]
-list_of_indices = [chr11_19_indices, chr11_19_mito_indices]
-
-for indices in list_of_indices:
-    for dim in [1,2]:
+for indices in [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_mito_indices]:
+    for dim in [1,2,3]:
         start_time = datetime.now()
         print "TESTING with",len(indices), "indices in data/chromosome11,19,mito.csv -  10 folds,", dim, "dimensions, threshold = 1."
         (samples, phenotype_numbers) = SelectedSample.read("data/chromosome11,19,mito.csv", indices, ",")
@@ -97,7 +94,7 @@ for indices in list_of_indices:
         print "----------------------------------------------------------"
 
 for file in ["chromosome11.csv", "chromosome19.csv", "chromosome11,19,mito.csv"]:
-    for dimension in [2]:
+    for dimension in [2,3]:
         start_time = datetime.now()
         print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
         (samples, phenotype_numbers) = FullSample.read("data/" + file, ",")
