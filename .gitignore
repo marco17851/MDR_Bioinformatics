@@ -4,3 +4,4 @@ practice_stuff.py
 *.pyc
 .DS_Store
 *.xlsx
+*.docx
