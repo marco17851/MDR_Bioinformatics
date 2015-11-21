@@ -1,9 +1,15 @@
 import csv
-import numpy as np
-MAX_SNP_NUM = 24315
 
 class SelectedSample:
     def __init__(self, snps, phenotype):
+        """
+        Initializes a SelectedSample object
+        Args:
+            snps: dictionary of SNP values for one sample keyed by the name of the SNP
+            phenotype (int): the phenotype of the sample
+        Returns:
+            the newly created SelectedSample object
+        """
         self.snps = snps
         self.phenotype = phenotype
 
@@ -17,7 +23,8 @@ class SelectedSample:
           indices (list of integers): inclusive list of the indices that we wish to examine
           delimeter (string): separates columns in file
         Returns:
-          list of Samples
+          list (SelectedSample): the SelectedSample objects created based on the information in the file
+          dictionary: the total number of samples separated by phenotype
         """
         reader = csv.reader(open(filename,'r'), delimiter=delimiter)
         samples = []

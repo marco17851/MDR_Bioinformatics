@@ -1,8 +1,15 @@
 import csv
-import numpy as np
 
 class FullSample:
     def __init__(self, snps, phenotype):
+        """
+        Initializes a FullSample object
+        Args:
+            snps: dictionary keyed by the name of the SNP holding the value of all the SNPs
+            phenotype (int): the phenotype of the sample
+        Returns:
+            the newly created FullSample object
+        """
         self.snps = snps
         self.phenotype = phenotype
 
@@ -15,7 +22,8 @@ class FullSample:
           filename (string): path to file
           delimeter (string): separates columns in file
         Returns:
-          list of Samples
+          list (FullSample): the FullSample objects created based on the information in the file
+          dictionary: the total number of Sample objects separated by phenotype
         """
         reader = csv.reader(open(filename,'r'), delimiter=delimiter)
         samples = []
