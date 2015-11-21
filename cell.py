@@ -4,10 +4,10 @@ Created on Thu Nov 05 12:11:40 2015
 
 @author: Lynn
 """
-# To do some math (calculate exponents).
+# To do some math (calculate exponents)
 import math as math
 
-# Multifactor cell that stores SNP information, calculates case-control ratio.
+# Multifactor cell that stores SNP information, calculates case-control ratio
 class Cell:
     def __init__(self):
         self.case = 0      # Number of people (aka Sample objects) w/ disease
@@ -47,15 +47,12 @@ class Cell:
     def calc_cells(samples, phenotype_numbers, SNPs_to_examine, cells, T = 1.0):
         # For each sample (aka a single person, renamed to be clearer):
         for person in samples:
-#            print "Person: ", person
-                
             # Determine key based on genotype each sample has at SNPS_to_examine
             SNP_key = ""
             for SNP_to_examine in SNPs_to_examine:
                 SNP_key += str(person.snps[SNP_to_examine])
                 
             # Bucket people using key to the dictionary cells
- #          print SNP_key
             if person.phenotype == 0:         
                 cells[SNP_key].control += 1
             else:
