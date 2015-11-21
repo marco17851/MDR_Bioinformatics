@@ -15,7 +15,7 @@ def make_snpCombos (sample, combo_size):
 #    snpList.append(snp)
 
   # Use me if just testing positive controls
-  snpList = ["rs543293", "rs7941541", "rs3851179", "rs405509", "rs439401"]
+#  snpList = ["rs543293", "rs7941541", "rs3851179", "rs405509", "rs439401"]
 
   # generate list of SNP combos for interaction testing (1, 2, 3, or 4)
   comboList = []
