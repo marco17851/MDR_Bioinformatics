@@ -75,13 +75,16 @@ chr11_19_mito_indices.extend(mito_indices)
 chr11_mito_indices = list(chr11_50_indices)
 chr11_mito_indices.extend(mito_indices)
 
-for indices in [chr11_mito_indices]:
+chr19_mito_indices = list(chr19_75_indices)
+chr19_mito_indices.extend(mito_indices)
+
+for indices in [chr19_mito_indices]:
     for dim in [1,2,3]:
         start_time = datetime.now()
         print "TESTING with",len(indices), "indices in data/chromosome11,19,mito.csv -  10 folds,", dim, "dimensions, threshold = 1."
         (samples, phenotype_numbers) = SelectedSample.read("data/chromosome11,19,mito.csv", indices, ",")
         error_rates = xval(samples, phenotype_numbers, 10, dim, 1.)
-        file_name = "results/SelectedSample-10folds" + str(dim) + "d" + str(len(indices)) + "indices.csv"
+        file_name = "results/SelectedSample_10folds_" + str(dim) + "D_" + str(len(indices)) + "indices.csv"
         writer = csv.writer(open(file_name, 'w'), delimiter=',')
         for key in error_rates:
             info = list(key)
