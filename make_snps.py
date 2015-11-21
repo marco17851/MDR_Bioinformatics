@@ -11,8 +11,8 @@ def make_snpCombos (sample, combo_size):
   # read in a sample, append each individual SNP in dataset to snpList[]
   snpList = []
 
-#  for snp in sample.snps:
-#    snpList.append(snp)
+  for snp in sample.snps:
+    snpList.append(snp)
 
   # Use me if just testing positive controls
 #  snpList = ["rs543293", "rs7941541", "rs3851179", "rs405509", "rs439401"]
