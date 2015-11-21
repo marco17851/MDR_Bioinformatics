@@ -56,10 +56,10 @@ def xval(sample_list, phenotype_numbers, num_folds, ndimensions = 1, threshold =
 def mdr(test, train, phenotype_numbers, ndimensions = 1, threshold = 1.0):
     """Assign a phenotype to each test instance, based on its ________ in the training set and calculate error rates.
     Args:
-      train (list of Sample): possible neighbors whose labels will be used
-      test (list of Sample): instances whose labels will be inferred from neighbors
+      train (list of Sample): Sample objects we will use to make the Cell and the predictions
+      test (list of Sample): Sample objects we will make predictions for
       ndimensions (integer): the number of snps we want to look at in each cell
-      threshold (float): the threshold at whcih we differentiate between high- and low-riskq
+      threshold (float): the threshold at which we differentiate between high- and low-riskq
     Returns:
       dictionary: the error rate for every possible combination of ndimensions snps
     """
