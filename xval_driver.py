@@ -72,7 +72,10 @@ chr11_19_indices.extend(chr19_75_indices)
 chr11_19_mito_indices = list(chr11_19_indices)
 chr11_19_mito_indices.extend(mito_indices)
 
-for indices in [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_mito_indices]:
+chr11_mito_indices = list(chr11_50_indices)
+chr11_mito_indices.extend(mito_indices)
+
+for indices in [chr11_mito_indices]:
     for dim in [1,2,3]:
         start_time = datetime.now()
         print "TESTING with",len(indices), "indices in data/chromosome11,19,mito.csv -  10 folds,", dim, "dimensions, threshold = 1."
@@ -93,23 +96,23 @@ for indices in [chr11_50_indices, chr19_75_indices, chr11_19_indices, chr11_19_m
 
         print "----------------------------------------------------------"
 
-for file in ["chromosome11.csv", "chromosome19.csv", "chromosome11,19,mito.csv"]:
-    for dimension in [2,3]:
-        start_time = datetime.now()
-        print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
-        (samples, phenotype_numbers) = FullSample.read("data/" + file, ",")
-        error_rates = xval(samples, phenotype_numbers, 10, dimension, 1.)
-        file_name = "results/FullSample-10folds" + str(dimension) + "d-" + str(file) + ".csv"
-        writer = csv.writer(open(file_name, 'w'), delimiter=',')
-        for key in error_rates:
-            info = list(key)
-            info.append(error_rates[key])
-            writer.writerow(info)
-            if error_rates[key] < .35:
-                print key, error_rates[key]
-        stop_time = datetime.now()
-        print "Elapsed time: ", stop_time - start_time
-
-        del error_rates, samples, phenotype_numbers
-
-        print "----------------------------------------------------------"
+# for file in ["chromosome11.csv", "chromosome19.csv", "chromosome11,19,mito.csv"]:
+#     for dimension in [2,3]:
+#         start_time = datetime.now()
+#         print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
+#         (samples, phenotype_numbers) = FullSample.read("data/" + file, ",")
+#         error_rates = xval(samples, phenotype_numbers, 10, dimension, 1.)
+#         file_name = "results/FullSample-10folds" + str(dimension) + "d-" + str(file) + ".csv"
+#         writer = csv.writer(open(file_name, 'w'), delimiter=',')
+#         for key in error_rates:
+#             info = list(key)
+#             info.append(error_rates[key])
+#             writer.writerow(info)
+#             if error_rates[key] < .35:
+#                 print key, error_rates[key]
+#         stop_time = datetime.now()
+#         print "Elapsed time: ", stop_time - start_time
+#
+#         del error_rates, samples, phenotype_numbers
+#
+#         print "----------------------------------------------------------"
