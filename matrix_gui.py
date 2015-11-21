@@ -1,12 +1,30 @@
+'''
+File: matrix_gui.py
+Project: MDR
+
+Main Editor(s): Marco Barragan
+
+Date Created: November 11, 2015
+'''
+
+# Imports
 from cell import *
 
+
+# MatrixGraphic()
+# ---------------
 # Visualization for the 2-dimensional space of two factors 
+# ---------------
+# cells - the dictionary that contains the SNPs
+# SNPs - the tuples of SNPs that we will be looking for in samples
 class MatrixGraphic:
 	def __init__(self, cells, SNPs):
 		self.cell_list = cells
 		self.top_name = SNPs[1]
 		self.side_name = SNPs[0]
 
+	# printGraphics()
+	# ---------------
 	# Prints the 2-dimensional space of two factors
 	def printGraphics(self):
 		s_ind = 0

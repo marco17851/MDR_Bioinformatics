@@ -1,5 +1,14 @@
-from cell import *
+'''
+File: predictor.py
+Project: MDR
 
+Main Editor(s): Marco Barragan
+
+Date Created: November 12, 2015
+'''
+
+# Imports
+from cell import *
 
 # getPrediction()
 # ---------------

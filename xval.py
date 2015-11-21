@@ -82,5 +82,6 @@ def mdr(test, train, phenotype_numbers, ndimensions = 1, threshold = 1.0):
             if test[i].phenotype != pred_list[i]:
                 incorrect_count += 1.
         error_rates[combo] = float(incorrect_count)/float(len(test))
+
     #return the error rate dictionary
     return error_rates
