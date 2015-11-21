@@ -1,7 +1,7 @@
 """
 @author: Danielle
 """
-from selected_sample import SelectedSample
+from sample import Sample
 from random import shuffle
 from make_snps import make_snpCombos
 from cell import Cell

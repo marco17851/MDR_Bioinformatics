@@ -1,5 +1,4 @@
-from selected_sample import SelectedSample
-from full_sample import FullSample
+from sample import Sample
 from xval import xval
 from datetime import *
 import csv
@@ -83,7 +82,7 @@ for indices in [chr11_mito_indices, chr19_mito_indices]:
     for dim in [3]:
         start_time = datetime.now()
         print "TESTING with",len(indices), "indices in data/chromosome11,19,mito.csv -  10 folds,", dim, "dimensions, threshold = 1."
-        (samples, phenotype_numbers) = SelectedSample.read("data/chromosome11,19,mito.csv", indices, ",")
+        (samples, phenotype_numbers) = Sample.selected_read("data/chromosome11,19,mito.csv", indices, ",")
         error_rates = xval(samples, phenotype_numbers, 10, dim, 1.)
         file_name = "results/SelectedSample_10folds_" + str(dim) + "D_" + str(len(indices)) + "indices.csv"
         writer = csv.writer(open(file_name, 'w'), delimiter=',')
@@ -104,7 +103,7 @@ for indices in [chr11_mito_indices, chr19_mito_indices]:
 #     for dimension in [2,3]:
 #         start_time = datetime.now()
 #         print "TESTING FullSample with", file, "-  10 folds,", dimension, "dimensions, threshold = 1."
-#         (samples, phenotype_numbers) = FullSample.read("data/" + file, ",")
+#         (samples, phenotype_numbers) = Sample.full_read("data/" + file, ",")
 #         error_rates = xval(samples, phenotype_numbers, 10, dimension, 1.)
 #         file_name = "results/FullSample-10folds" + str(dimension) + "d-" + str(file) + ".csv"
 #         writer = csv.writer(open(file_name, 'w'), delimiter=',')
