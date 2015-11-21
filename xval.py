@@ -12,6 +12,17 @@ MAX_NUM_SNPS = 4
 NUM_GENOTYPES = 3
 
 def xval(sample_list, phenotype_numbers, num_folds, ndimensions = 1, threshold = 1.0):
+    """
+    Performs a cross-validation of the multi-factor dimensionality reduction (MDR) predictions to assess the generalization ability
+    Args:
+        sample_list: list (FullSample or SelectedSample): list of sample upon which to perform the cross validation
+        phenotype_numbers: dictionary: a dictionary keyed by phenotype giving the total number of samples for each
+        num_folds (int): the desired number of folds to use for the cross-validation
+        ndimensions (int): the desired number of SNPs to compare simultaneously
+        threshold (int): the ratio value used to separate high- and low-risk
+    Returns:
+        dictionary: average error rate (across folds) for every possible combination of ndimensions SNPs
+    """
     error_rates = {}
     shuffled_samples = list(sample_list)
     shuffle(shuffled_samples)
